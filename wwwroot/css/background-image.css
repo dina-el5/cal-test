@@ -1,0 +1,15 @@
+body > div.container{
+    margin: unset;
+    padding: unset;
+    width:100%;
+    min-height: 85vh;
+    background-image: url("../home-page.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-width: unset;
+    justify-items: center;
+    display: flex;
+    justify-content: center;
+}
+

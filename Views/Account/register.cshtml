@@ -1,0 +1,50 @@
+@model Calendar.Models.RegisterViewModel
+
+<div class="article-box">
+<div class="register-container">
+<h2>S'inscrire</h2>
+<form asp-action="Register" method="post">
+    <div class="custom-form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="custom-form-group">
+        <label asp-for="Password">Mot De Passe</label>
+        <input asp-for="Password" class="form-control" type="password" id="password" />
+        <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="custom-form-group">
+        <label asp-for="ConfirmPassword">Confirmer Le Mot De Passe</label>
+        <input asp-for="ConfirmPassword" class="form-control" type="password" id="confirm-password" />
+        <span toggle="#confirm-password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">S'inscrire</button>
+</form>
+<div class="mt-3 text-center">
+<p>Already an account? <a class="login-ref" href="/Account/Login">Login here</a></p>
+</div>
+</div>
+
+<div class="image-holder">
+<div>
+    <img class="img-fluid rounded" type="image/jpg" src="~/login-image.jpg" />
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    <script>
+        $(".toggle-password").click(function() {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
+}

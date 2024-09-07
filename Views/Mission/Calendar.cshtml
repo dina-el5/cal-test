@@ -1,0 +1,357 @@
+@model IEnumerable<Calendar.Models.Mission>
+
+@{
+    var missionEvents = Model.Select(m => new {
+        id = m.Id,
+        title = m.Title,
+        start = m.StartDate.ToString("yyyy-MM-dd"),
+        end = m.EndDate.ToString("yyyy-MM-dd"),
+        site = m.Site.ToString(),
+        employees = m.Employees.Select(e => new { id = e.Id, name = e.Name }).ToList(),
+        description = m.Description
+    }).ToList();
+
+    var jsonMissions = System.Text.Json.JsonSerializer.Serialize(missionEvents);
+}
+
+
+<div class="filter-container">
+    <select id="siteFilter" class="filter-cell">
+        <option value="">Tous les sites</option>
+        <option value="SiteA">Site A</option>
+        <option value="SiteB">Site B</option>
+        <option value="SiteC">Site C</option>
+        <option value="SiteD">Site D</option>
+    </select>
+
+    <select id="employeeFilter" class="filter-cell">
+        <option value="">Tous les employés</option>
+    </select>
+</div>
+<!-- Modal for creating/editing missions -->
+<div class="modal fade" id="missionModal" role="dialog" aria-labelledby="missionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="missionModalLabel">Details de la mission</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <form id="missionForm">
+                <input type="hidden" id="missionId" name="missionId" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="title">Titre</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Entrer le titre de la mission" required />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="startDate">Date de debut</label>
+                            <input type="date" class="form-control" id="startDate" name="startDate" required />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="endDate">Date de fin</label>
+                            <input type="date" class="form-control" id="endDate" name="endDate" required />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="site">Site</label>
+                        <select id="site" name="Site" class="" required>
+                            <option value="">Tous les sites</option>
+                            <option value="SiteA">Site A</option>
+                            <option value="SiteB">Site B</option>
+                            <option value="SiteC">Site C</option>
+                            <option value="SiteD">Site D</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="employees">Employés</label>
+                        <select id="employees" name="employees" class="form-control" multiple="multiple" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Déscription</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Entrer la description de la mission"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-danger" id="deleteMissionButton">Supprimer</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="article-box">
+<div id="container" class="login-container">
+<div id="calendar"></div>
+</div>
+</div>
+
+@section Scripts {
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var height = document.getElementById('container').offsetHeight - 60;
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            height: height,
+            windowResize: true,
+            windowResize: function (arg) {
+                var height = document.getElementById('container').offsetHeight - 60;
+                calendar.setOption('height', height);
+            },
+            aspectRatio: 0.5,
+            editable: true,
+            locale: 'fr',
+            events: @Html.Raw(jsonMissions),
+            dateClick: function(info) {
+                $('#missionId').val('');
+                $('#startDate').val(info.dateStr);
+                $('#endDate').val(info.dateStr);
+                $('#site').val('');
+                $('#selectedEmployees').empty();
+                $('#selectedEmployeeIds').val('');
+                $('#deleteMissionButton').hide();
+                $('#missionModal').modal('show');
+            },
+            eventClick: function(info) {
+                var mission = info.event;
+                $('#missionId').val(mission.id);
+                $('#title').val(mission.title);
+                var startDate = new Date(mission.start);
+                startDate.setDate(startDate.getDate() + 1);
+                $('#startDate').val(startDate.toISOString().slice(0,10));
+                if (!mission.endStr) {
+                    var startDate = new Date(mission.start);
+                    startDate.setDate(startDate.getDate() + 1);
+                    $('#endDate').val(startDate.toISOString().slice(0, 10));
+                } else{
+                    $('#endDate').val(mission.endStr);
+                }
+                $('#site').val(mission.extendedProps.site).trigger('change');
+                $('#employees').val(null).trigger('change');
+                $.ajax({
+                    url: '@Url.Action("GetAllEmployees", "Mission")',
+                    type: 'GET',
+                    success: function(data) {
+                        var selectedEmployeeIds = mission.extendedProps.employees.map(e => e.id);
+                        $('#employees').select2({
+                            data: data.map(employee => ({
+                                id: employee.id,
+                                text: employee.name,
+                                selected: selectedEmployeeIds.includes(employee.name)
+                            })),
+                            dropdownCssClass: "increasedzindexclass",
+                            placeholder: 'Sélectionnez des employés',
+                            allowClear: true
+                        }).val(selectedEmployeeIds).trigger('change');
+                    },
+                    error: function() {
+                        alert('Failed to load employee data.');
+                    }
+                });
+                $('#description').val(mission.extendedProps.description);
+                $('#deleteMissionButton').show();
+                $('#missionModal').modal('show');
+            },
+            eventColor: '#628ECB'
+        });
+
+        calendar.render();
+
+        $('#missionForm').on('submit', function(event) {
+            event.preventDefault();
+            var missionId = $('#missionId').val();
+            var title = $('#title').val();
+            var startDate = $('#startDate').val();
+            var endDate = $('#endDate').val();
+            var site = $('#site').val();
+            var employeeIds = $('#employees').val();
+            var description = $('#description').val();
+
+            var data = {
+                title: title,
+                startDate: startDate,
+                endDate: endDate,
+                site: site,
+                employees: employeeIds,
+                description: description
+            };
+
+            if (missionId) {
+                data.id = missionId;
+            }
+
+            $.ajax({
+                url: '@Url.Action("Create", "Mission")',
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    if(response.success) {
+                        if (missionId) {
+                            var event = calendar.getEventById(missionId);
+                            event.setProp('title', title);
+                            event.setDates(startDate, endDate);
+                            event.setExtendedProp('site', site);
+                            event.setExtendedProp('employees', response.employees);
+                            event.setExtendedProp('description', description);
+                        } else {
+                            calendar.addEvent({
+                                id: response.id,
+                                title: title,
+                                start: startDate,
+                                end: endDate,
+                                extendedProps: {
+                                    site: site,
+                                    employees: response.employees,
+                                    description: description
+                                }
+                            });
+                        }
+                        $('#missionModal').modal('hide');
+                    } else {
+                        alert('An error occurred while saving the mission.');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while saving the mission.');
+                }
+            });
+        });
+
+        $('#deleteMissionButton').on('click', function() {
+            var missionId = $('#missionId').val();
+
+            if (missionId) {
+                $.ajax({
+                    url: '@Url.Action("DeleteMission", "Mission")',
+                    type: 'POST',
+                    data: { id: missionId },
+                    success: function(response) {
+                        if (response.success) {
+                            var event = calendar.getEventById(missionId);
+                            if (event) {
+                                event.remove();
+                            }
+                            $('#missionModal').modal('hide');
+                        } else {
+                            alert('An error occurred while deleting the mission.');
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while deleting the mission.');
+                    }
+                });
+            } else {
+                alert('No mission selected to delete.');
+            }
+        });
+
+
+        $.ajax({
+            url: '@Url.Action("GetAllEmployees", "Mission")',
+            type: 'GET',
+            success: function(data) {
+                var employeeFilter = $('#employeeFilter');
+                employeeFilter.empty();
+                employeeFilter.append(new Option('Tous les employés', ''));
+
+                data.forEach(function(employee) {
+                    employeeFilter.append(new Option(employee.text));
+                });
+            },
+            error: function() {
+                alert('Failed to load employee data.');
+            }
+        });
+        function filterEvents() {
+            var selectedSite = $('#siteFilter').val();
+            var selectedEmployee = $('#employeeFilter').val();
+            calendar.removeAllEvents();
+            var allEvents = @Html.Raw(jsonMissions);
+            var filteredEvents = allEvents.filter(function(event) {
+                var matchesSite = selectedSite === "" || event.site === selectedSite;
+                var matchesEmployee = selectedEmployee === "" || event.employees.some(e => e.name == selectedEmployee);
+
+                return matchesSite && matchesEmployee;
+            });
+
+            filteredEvents.forEach(function(event) {
+                calendar.addEvent({
+                    id: event.id,
+                    title: event.title,
+                    start: event.start,
+                    end: event.end,
+                    extendedProps: {
+                        site: event.site,
+                        employees: event.employees,
+                        description: event.description
+                    }
+                });
+            });
+        }
+
+        $('#siteFilter').on('change', filterEvents);
+        $('#employeeFilter').on('change', filterEvents);
+        $('#employees').select2({
+            placeholder: 'Sélectionnez des employés',
+            allowClear: true,
+            ajax: {
+                url: '@Url.Action("GetAllEmployees", "Mission")',
+                dataType: 'json',
+                delay: 250,
+                dropdownCssClass: "increasedzindexclass",
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 1,
+            dropdownParent: $('#missionModal'),
+            width: "100%"
+        });
+        $('#siteFilter').select2({
+            placeholder: 'Sélectionnez un site',
+            allowClear: true,
+            minimumInputLength: 1,
+            width: "20%"
+        });
+        $('#employeeFilter').select2({
+            placeholder: 'Sélectionnez des employee',
+            allowClear: true,
+            minimumInputLength: 1,
+            width: "20%"
+        });
+        $('#site').select2({
+            placeholder: 'Sélectionnez un site',
+            dropdownParent: $('#missionModal'),
+            minimumInputLength: 1,
+            width: "100%"
+        });
+        $.ajax({
+            url: '@Url.Action("GetAllEmployees", "Mission")',
+            type: 'GET',
+            success: function(data) {
+                $('#employees').select2({
+                    data: data,
+                    placeholder: 'Sélectionnez des employés',
+                    allowClear: true,
+                    dropdownCssClass: "increasedzindexclass",
+                    width: '100%'
+                });
+            }
+        });
+    });
+    </script>
+    <script src="~/lib/fullcalendar/dist/index.global.min.js"></script>
+    <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css">
+    <script type="text/javascript" src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/lib/select2/select2.min.js"></script>
+    <link href="~/lib/select2/select2.min.css" rel="stylesheet" />
+}

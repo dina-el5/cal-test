@@ -1,0 +1,35 @@
+.container{
+     background-image: url("~/home-page.jpg");
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     display: grid;
+     place-items: center;
+}
+
+.box-for-home {
+    height: 50vh;
+    background-color: rgba(256, 256, 256, 0.7);
+    width: 700px;
+    margin: auto 0;
+}
+
+.icon-for-home {
+    margin-top: 50px;
+    margin-right:auto;
+    margin-left:auto;
+    justify-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+
+.home-content {
+    color: #000;
+    justify-content: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: bold;
+}

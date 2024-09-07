@@ -1,0 +1,258 @@
+/* _content/Calendar/Views/Account/login.cshtml.rz.scp.css */
+.article-box[b-rj5lhjq7bx] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.login-container[b-rj5lhjq7bx] {
+    width: 100%;
+    height: 400px;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px 0px 0px 8px;
+    border-right: none;
+    color: #000;
+}
+.image-holder[b-rj5lhjq7bx] {
+    width:100%;
+    max-width: 400px;
+    height: 400px;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0px 8px 8px 0px;
+    padding: 10px;
+    background-color: #fff;
+}
+.login-container h2[b-rj5lhjq7bx] {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.login-container form .btn[b-rj5lhjq7bx] {
+    width: 100%;
+}
+.custom-form-group[b-rj5lhjq7bx] {
+    padding-bottom: 15px;
+}
+
+.field-icon[b-rj5lhjq7bx] {
+  float: right;
+  margin-left: -100px;
+  margin-right:15px;
+  margin-top: -27.5px;
+  position: relative;
+  z-index: 2;
+}
+.login-ref[b-rj5lhjq7bx] {
+    color: #f6c177 !important;
+}
+
+/* _content/Calendar/Views/Account/register.cshtml.rz.scp.css */
+.article-box[b-pml4wzb9vp] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.register-container[b-pml4wzb9vp] {
+    width: 100%;
+    height: 450px;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px 0px 0px 8px;
+    border-right: none;
+    color: #000;
+}
+.image-holder[b-pml4wzb9vp] {
+    width:100%;
+    max-width: 450px;
+    height: 450px;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0px 8px 8px 0px;
+    padding: 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register-container h2[b-pml4wzb9vp] {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.register-container form .btn[b-pml4wzb9vp] {
+    width: 100%;
+}
+.custom-form-group[b-pml4wzb9vp] {
+    padding-bottom: 15px;
+}
+.field-icon[b-pml4wzb9vp] {
+  float: right;
+  margin-left: -100px;
+  margin-right:15px;
+  margin-top: -27.5px;
+  position: relative;
+  z-index: 2;
+}
+.login-ref[b-pml4wzb9vp] {
+    color: #f6c177 !important;
+}
+/* _content/Calendar/Views/Home/Index.cshtml.rz.scp.css */
+.container[b-ymbkn2br9o]{
+     background-image: url("~/home-page.jpg");
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     display: grid;
+     place-items: center;
+}
+
+.box-for-home[b-ymbkn2br9o] {
+    height: 50vh;
+    background-color: rgba(256, 256, 256, 0.7);
+    width: 700px;
+    margin: auto 0;
+}
+
+.icon-for-home[b-ymbkn2br9o] {
+    margin-top: 50px;
+    margin-right:auto;
+    margin-left:auto;
+    justify-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+
+.home-content[b-ymbkn2br9o] {
+    color: #000;
+    justify-content: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: bold;
+}
+/* _content/Calendar/Views/Mission/Calendar.cshtml.rz.scp.css */
+.article-box[b-a1z1paudqa] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
+.login-container[b-a1z1paudqa] {
+    height: 100%;
+    width: 90%;
+    padding: 2rem;
+    background-color: #F0f3fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #000 !important;
+}
+
+.modal-header[b-a1z1paudqa] {
+    background-color: #8aaee0;
+}
+.modal-body[b-a1z1paudqa] {
+    color: #000;
+}
+.filter-container[b-a1z1paudqa] {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    right: 0;
+}
+.badge[b-a1z1paudqa] {
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0.2em;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0.25em;
+}
+.modal[b-a1z1paudqa]{
+
+    z-index:1051;
+}
+.select2-results[b-a1z1paudqa] {
+    color:#000 !important;
+}
+/* _content/Calendar/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+a.navbar-brand[b-n7xjp06p44] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+  color: #e0def4 !important;
+  text-decoration: none !important;
+}
+
+a[b-n7xjp06p44] {
+  color: #e0def4 !important;
+  text-decoration: none !important;
+}
+.text-white-custom[b-n7xjp06p44] {
+  color: #e0def4 !important;
+}
+
+.btn-primary[b-n7xjp06p44] {
+  color: #908caa !important;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-n7xjp06p44], .nav-pills .show > .nav-link[b-n7xjp06p44] {
+    color: #628ECB !important;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-item[b-n7xjp06p44] {
+  border: 4px solid #8aaee0;;
+  border-radius: 80px;
+}
+
+.nav-link-custom[b-n7xjp06p44] {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #628ECB !important;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+    .nav-link-custom:hover[b-n7xjp06p44],
+    .nav-link-custom:focus[b-n7xjp06p44] {
+        color: #628ECB;
+    }
+
+.border-top[b-n7xjp06p44] {
+  border-top: 1px solid #56526e;
+}
+.border-bottom[b-n7xjp06p44] {
+  border-bottom: 1px solid #56526e;
+}
+
+.box-shadow[b-n7xjp06p44] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-n7xjp06p44] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-n7xjp06p44] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #628ECB;
+}

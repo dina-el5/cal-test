@@ -1,0 +1,83 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+        background-color: #D5DEEF;
+        color: #F6EFE5;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #D5DEEF;
+    color: #000;
+}
+
+header {
+    background-color: #D5DEEF;
+    color: #F6EFE5;
+}
+nav {
+    background-color: #628ECB;
+    color: #F6EFE5;
+}
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    color: #F6EFE5 !important;
+    text-decoration: none !important;
+}
+
+a {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+.text-white-custom {
+    color: #000 !important;
+}
+
+.btn-primary {
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #F6EFE5 !important;
+    background-color: #628ECB;
+    border-color: #1861ac;
+}
+.nav-item {
+  border: 4px solid #8aaee0;
+  border-radius: 80px;
+}
+
+
+.nav-link-custom {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #F6EFE5 !important;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+    .nav-link-custom:hover,
+    .nav-link-custom:focus {
+        color: #F6EFE5;
+    }
+
+.fc-day.fc-day-sun.fc-day-today.fc-daygrid-day{
+    background-color: #b1c9ef !important;
+}
+

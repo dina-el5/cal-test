@@ -1,0 +1,44 @@
+.article-box[b-a1z1paudqa] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
+.login-container[b-a1z1paudqa] {
+    height: 100%;
+    width: 90%;
+    padding: 2rem;
+    background-color: #F0f3fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #000 !important;
+}
+
+.modal-header[b-a1z1paudqa] {
+    background-color: #8aaee0;
+}
+.modal-body[b-a1z1paudqa] {
+    color: #000;
+}
+.filter-container[b-a1z1paudqa] {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    right: 0;
+}
+.badge[b-a1z1paudqa] {
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0.2em;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0.25em;
+}
+.modal[b-a1z1paudqa]{
+
+    z-index:1051;
+}
+.select2-results[b-a1z1paudqa] {
+    color:#000 !important;
+}

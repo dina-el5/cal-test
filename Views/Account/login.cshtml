@@ -1,0 +1,48 @@
+@model Calendar.Models.LoginViewModel
+
+<div class="article-box">
+<div class="login-container">
+<h2>Se Connecter</h2>
+    <form asp-action="Login" method="post">
+        <div class="custom-form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="custom-form-group">
+            <label asp-for="Password">Mot de Passe</label>
+            <input asp-for="Password" class="form-control" id="password" />
+            <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="custom-form-group">
+            <div class="form-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label">Se Souvenir de Moi</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Se Connecter</button>
+    </form>
+    <div class="mt-3 text-center">
+        <p>Vous n'avez pas un compte? <a class="login-ref" href="/Account/Register">Incscrivez-vous ici</a></p>
+    </div>
+
+</div>
+<div class="image-holder">
+    <img class="img-fluid rounded" type="image/jpg" src="~/login-image.jpg" />
+</div>
+</div>
+
+@section Scripts {
+<script>
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
+}

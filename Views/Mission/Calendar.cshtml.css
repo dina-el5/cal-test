@@ -1,0 +1,44 @@
+.article-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
+.login-container {
+    height: 100%;
+    width: 90%;
+    padding: 2rem;
+    background-color: #F0f3fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #000 !important;
+}
+
+.modal-header {
+    background-color: #8aaee0;
+}
+.modal-body {
+    color: #000;
+}
+.filter-container {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    right: 0;
+}
+.badge {
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0.2em;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0.25em;
+}
+.modal{
+
+    z-index:1051;
+}
+.select2-results {
+    color:#000 !important;
+}
